@@ -5,7 +5,7 @@ Simple, responsive and customizable carousel component for your React app.
 ## Install
 
 ```
-$ npm install --lapsa-slider
+$ npm install lapsa-slider
 ```
 
 ## Features

@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/react";
-import leftArrow from "./img/left-arrow.svg";
-import rightArrow from "./img/right-arrow.svg";
+import LeftArrow from "./img/LeftArrow";
+import RightArrow from "./img/RightArrow";
 
 function Arrow({ direction, handleClick }) {
   const style = css`
@@ -28,11 +28,7 @@ function Arrow({ direction, handleClick }) {
   `;
   return (
     <div onClick={handleClick} css={style}>
-      {direction === "right" ? (
-        <img src={rightArrow} />
-      ) : (
-        <img src={leftArrow} />
-      )}
+      {direction === "right" ? <RightArrow /> : <LeftArrow />}
     </div>
   );
 }
