@@ -8,7 +8,13 @@ import Arrow from "./Arrow";
 
 const getWidth = () => window.innerWidth;
 
-function Slider({ slides, width, height, showArrows = true, showDots = true }) {
+function Slider({
+  children,
+  width,
+  height,
+  showArrows = true,
+  showDots = true,
+}) {
   const SliderCss = css`
     position: relative;
     object-fit: contain;
@@ -19,9 +25,9 @@ function Slider({ slides, width, height, showArrows = true, showDots = true }) {
     cursor: pointer;
   `;
 
-  const firstSlide = slides[0];
-  const secondSlide = slides[1];
-  const lastSlide = slides[slides.length - 1];
+  const firstSlide = children[0];
+  const secondSlide = children[1];
+  const lastSlide = children[children.length - 1];
 
   const [state, setState] = useState({
     activeIndex: 0,
@@ -55,8 +61,8 @@ function Slider({ slides, width, height, showArrows = true, showDots = true }) {
   const smoothTransition = () => {
     let _slides = [];
 
-    if (activeIndex === slides.length - 1)
-      _slides = [slides[slides.length - 2], lastSlide, firstSlide];
+    if (activeIndex === children.length - 1)
+      _slides = [children[children.length - 2], lastSlide, firstSlide];
     else if (activeIndex === 0) _slides = [lastSlide, firstSlide, secondSlide];
     else _slides = slides.slice(activeIndex - 1, activeIndex + 2);
 
@@ -72,11 +78,11 @@ function Slider({ slides, width, height, showArrows = true, showDots = true }) {
     setState({
       ...state,
       translate:
-        activeIndex === slides.length - 1
+        activeIndex === children.length - 1
           ? 0
           : (activeIndex + 1) *
             (window.innerWidth > width ? width : window.innerWidth),
-      activeIndex: activeIndex === slides.length - 1 ? 0 : activeIndex + 1,
+      activeIndex: activeIndex === children.length - 1 ? 0 : activeIndex + 1,
     });
   };
 
@@ -85,11 +91,11 @@ function Slider({ slides, width, height, showArrows = true, showDots = true }) {
       ...state,
       translate:
         activeIndex === 0
-          ? (slides.length - 1) *
+          ? (children.length - 1) *
             (window.innerWidth > width ? width : window.innerWidth)
           : (activeIndex - 1) *
             (window.innerWidth > width ? width : window.innerWidth),
-      activeIndex: activeIndex === 0 ? slides.length - 1 : activeIndex - 1,
+      activeIndex: activeIndex === 0 ? children.length - 1 : activeIndex - 1,
     });
   };
 
@@ -177,8 +183,7 @@ function Slider({ slides, width, height, showArrows = true, showDots = true }) {
       <SliderContent
         translate={translate}
         transition={transition}
-        maxWidth={width * slides.length}
-        width={width}
+        maxWidth={width * children.length}
         onMouseDown={(e) => handleMouseStart(e)}
         onMouseMove={(e) => handleMouseMove(e)}
         onMouseUp={() => handleMouseEnd()}
@@ -186,8 +191,10 @@ function Slider({ slides, width, height, showArrows = true, showDots = true }) {
         onTouchMove={(e) => handleTouchMove(e)}
         onTouchEnd={() => handletouchEnd()}
       >
-        {slides.map((slide, idx) => (
-          <Slide content={slide} key={idx} width={width} />
+        {children.map((slide, idx) => (
+          <Slide key={idx} width={width}>
+            {slide}
+          </Slide>
         ))}
       </SliderContent>
       {showArrows && <Arrow direction="left" handleClick={prevSlide} />}
@@ -195,7 +202,7 @@ function Slider({ slides, width, height, showArrows = true, showDots = true }) {
 
       {showDots && (
         <Dots
-          slides={slides}
+          slides={children}
           activeIndex={activeIndex}
           setState={setState}
           state={state}

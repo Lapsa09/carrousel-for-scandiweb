@@ -1,18 +1,18 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/react";
 
-const Slide = ({ content, width }) => {
+const Slide = ({ children, width }) => {
   const style = css`
     height: 100%;
     width: 100vw;
     max-width: ${width}px;
-    background-image: url(${content});
-    background-size: min(100vw, ${width}px) 100%;
-    background-repeat: no-repeat;
-    background-position: start;
+    user-select: none;
+    img {
+      pointer-events: none;
+    }
   `;
 
-  return <div css={style} />;
+  return <div css={style}>{children}</div>;
 };
 
 export default Slide;
