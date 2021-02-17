@@ -10,10 +10,12 @@ const Slide = ({
   transitionDuration = 0.4,
   slideCount,
 }) => {
-  let actualTranslate = curr * -width + translate;
-  if (actualTranslate > 0) actualTranslate = 0;
-  else if (actualTranslate <= (slideCount - 1) * -width)
-    actualTranslate = curr * -width;
+  const actualTranslate =
+    curr * -width + translate > 0
+      ? 0
+      : curr * -width + translate <= (slideCount - 1) * -width
+      ? curr * -width
+      : curr * -width + translate;
 
   const style = css`
     height: 100%;

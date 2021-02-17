@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
 export const useFingerSwipe = (width, onLeft, onRight) => {
-  const [translated, setTranslate] = useState(0);
+  const [translate, setTranslate] = useState(0);
 
   const xDown = useRef();
 
@@ -50,10 +50,10 @@ export const useFingerSwipe = (width, onLeft, onRight) => {
   };
 
   const handleTouchEnd = () => {
-    setTranslate((translated) => {
-      if (translated >= width / 2) {
+    setTranslate((translate) => {
+      if (translate >= width / 2) {
         onRight();
-      } else if (translated <= -width / 2) {
+      } else if (translate <= -width / 2) {
         onLeft();
       }
       return 0;
@@ -68,5 +68,5 @@ export const useFingerSwipe = (width, onLeft, onRight) => {
     currWidth.current = width;
   }, [width]);
 
-  return { translated, handleTouchStart, handleTouchMove, handleTouchEnd };
+  return { translate, handleTouchStart, handleTouchMove, handleTouchEnd };
 };

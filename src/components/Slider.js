@@ -53,7 +53,7 @@ function Slider({
   };
 
   const {
-    translated,
+    translate,
     handleTouchStart,
     handleTouchEnd,
     handleTouchMove,
@@ -74,7 +74,7 @@ function Slider({
           children.map((slide, idx) => (
             <Slide
               key={idx}
-              translate={translated}
+              translate={translate}
               width={slideWidth}
               slideCount={children.length}
               curr={activeIndex}
