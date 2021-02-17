@@ -109,4 +109,4 @@ function SliderExample() {
 
 ## DEMO
 
-https://lapsa09.github.io/carrousel-for-scandiweb/
+https://lapsa09.github.io/carrousel-slider/
