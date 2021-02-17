@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import throttle from "lodash.throttle";
 
 export const useFingerSwipe = (width, onLeft, onRight) => {
   const [translated, setTranslate] = useState(0);
@@ -63,7 +62,7 @@ export const useFingerSwipe = (width, onLeft, onRight) => {
     xDown.current = null;
   };
 
-  const handleTouchMove = useCallback(throttle(handleMove, 200), []);
+  const handleTouchMove = useCallback(handleMove, []);
 
   useEffect(() => {
     currWidth.current = width;
