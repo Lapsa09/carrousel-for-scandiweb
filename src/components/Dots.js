@@ -1,8 +1,6 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/react";
 
-const getWidth = () => window.innerWidth;
-
 const Dot = ({ active, onClick }) => {
   const style = css`
     padding: 10px;
@@ -19,7 +17,7 @@ const Dot = ({ active, onClick }) => {
   return <span css={style} onClick={onClick} />;
 };
 
-function Dots({ slides, activeIndex, setState, state, width }) {
+function Dots({ slides, activeIndex, setState }) {
   const style = css`
     position: absolute;
     padding: 2px;
@@ -27,7 +25,7 @@ function Dots({ slides, activeIndex, setState, state, width }) {
     bottom: 25px;
     left: 50%;
     transform: translateX(-50%);
-    width: 30%;
+    max-width: 30%;
     overflow-x: scroll;
     display: flex;
     align-items: center;
@@ -38,22 +36,22 @@ function Dots({ slides, activeIndex, setState, state, width }) {
   `;
 
   const getIndex = (i) => {
-    setState({
-      ...state,
-      translate: i * width,
-      activeIndex: i,
-    });
+    setState(i);
   };
 
   return (
     <div css={style}>
-      {slides.map((slide, i) => (
-        <Dot
-          key={slide}
-          active={activeIndex === i}
-          onClick={() => getIndex(i)}
-        />
-      ))}
+      {slides.length > 1 ? (
+        slides.map((slide, i) => (
+          <Dot
+            key={slide}
+            active={activeIndex === i}
+            onClick={() => getIndex(i)}
+          />
+        ))
+      ) : (
+        <Dot key={0} active={true} />
+      )}
     </div>
   );
 }
